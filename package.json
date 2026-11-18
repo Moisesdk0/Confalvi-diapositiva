@@ -1,0 +1,17 @@
+{
+  "name": "confalvi-presentacion",
+  "version": "1.0.0",
+  "description": "Presentación: Auditoría del Sistema de Gestión de Almacén - CONFALVI, C.A.",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify",
+    "watch": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "tailwindcss": "3.4"
+  },
+  "private": true
+}
