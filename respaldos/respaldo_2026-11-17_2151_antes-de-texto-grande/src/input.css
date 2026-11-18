@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lienzo 16:9 fijo de 1920×1080, escalado por JS a la ventana */
+@layer base {
+  html, body {
+    @apply h-full overflow-hidden bg-[#E3E8EE] font-sans text-ink antialiased;
+  }
+}
+
+@layer components {
+  .stage  { @apply absolute left-1/2 top-1/2 h-[1080px] w-[1920px]; transform-origin: center center; }
+  .slide  { @apply absolute inset-0 hidden h-[1080px] w-[1920px] overflow-hidden bg-paper; font-weight: 500; }
+  .slide.is-active { @apply block; }
+
+  /* Piezas reutilizables del sistema de diseño */
+  .tag      { @apply inline-flex items-center rounded-full border border-ink px-6 py-2 text-[18px] font-semibold tracking-tight; }
+  .tag-solid { @apply inline-flex items-center rounded-full bg-ink px-6 py-2 text-[18px] font-semibold tracking-tight text-white; }
+  .label    { @apply text-[15px] font-bold uppercase tracking-[.16em] text-ink-3; }
+  /* Espacio reservado para imágenes: pon el archivo en la ruta indicada y aparece solo */
+  .slot     { @apply relative overflow-hidden rounded-[22px] border-2 border-dashed border-mist bg-cloud; }
+  .slot > span { @apply absolute inset-0 grid place-items-center p-3 text-center text-[17px] font-semibold leading-snug text-ink-2; }
+  .slot > img  { @apply absolute inset-0 h-full w-full object-cover; }
+  /* Indicador de avance por Momento (I a IV) */
+  .step     { @apply grid h-[40px] w-[40px] place-items-center rounded-full border-2 border-mist text-[16px] font-bold text-ink-3; }
+  .step.on  { @apply border-ink bg-ink text-white; }
+  .meta     { @apply text-[14px] font-semibold uppercase tracking-[.12em] text-ink-3; }
+}
+
+/* ===== Impresión / exportar a PDF: una lámina por página 16:9 (1920×1080 px) ===== */
+@media print {
+  @page { size: 1920px 1080px; margin: 0; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { height: auto !important; overflow: visible !important; background: #FCFCFC !important; }
+  main.fixed { position: static !important; }
+  .stage { position: static !important; transform: none !important; width: 1920px !important; height: auto !important; }
+  .slide { display: block !important; position: relative !important; width: 1920px !important; height: 1080px !important; break-after: page; page-break-after: always; overflow: hidden; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+}
